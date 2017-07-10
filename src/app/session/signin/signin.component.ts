@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { UserService } from './../../services/user.service'
 
 @Component({
   selector: 'app-signin',
@@ -10,7 +11,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 export class SigninComponent implements OnInit {
 
   public form: FormGroup;
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(private fb: FormBuilder, private router: Router, private userService: UserService) {}
 
   ngOnInit() {
     this.form = this.fb.group ( {
@@ -19,7 +20,13 @@ export class SigninComponent implements OnInit {
   }
 
   onSubmit() {
-    this.router.navigate ( [ '/dashboard' ] );
+    console.log(this.form.get("uname"));
+    this.userService.signin("test2@test.com","pwd0124567").then(data => {
+      console.log(data);
+      this.router.navigate ( [ '/home' ] );
+    }, error => {
+      console.log(error);
+    });
   }
 
 }

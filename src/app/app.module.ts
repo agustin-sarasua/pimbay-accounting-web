@@ -17,6 +17,11 @@ import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 import { SharedModule } from './shared/shared.module';
 
+import { AuthService } from './services/auth.service';
+import { RestService } from './services/rest.service';
+import { UserService } from './services/user.service';
+import { AuthGuard } from './auth.guard';
+
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, './assets/i18n', '.json');
 }
@@ -43,7 +48,12 @@ export function createTranslateLoader(http: Http) {
     MaterialModule,
     FlexLayoutModule,
   ],
-  providers: [],
+  providers: [
+    UserService,
+    RestService, 
+    AuthService, 
+    AuthGuard, 
+  ],
   entryComponents: [ JazzDialogComponent, CalendarDialogComponent ],
   bootstrap: [AppComponent]
 })
