@@ -12,7 +12,21 @@ export class UserService {
   public signin(username: string, pwd: string):Promise<string> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append("Authorization", "Basic " + btoa(username + ":" + pwd));
-    return this.restService.doPost<string>(environment.backendUrl, "signin", "", headers, true);
+    return this.http.post(environment.backendUrl + "signin", "", {headers})
+      .toPromise()
+      .then(this.extractToken)
+      .catch(this.handleError);
   }
 
+  extractToken(res: Response) {
+    if (res.status < 200 || res.status >= 300) {
+      throw new Error('Bad response status: ' + res.status);
+    }
+    return res.headers.get('token');
+  }
+
+  handleError (error: any) {
+    let errMsg = error.message || 'Server error';
+    return Observable.throw(errMsg);
+  }
 }

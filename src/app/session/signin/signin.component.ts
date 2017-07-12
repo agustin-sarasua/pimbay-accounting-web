@@ -20,9 +20,9 @@ export class SigninComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form.get("uname"));
-    this.userService.signin("test2@test.com","pwd0124567").then(data => {
+    this.userService.signin(this.form.get('uname').value, this.form.get('password').value).then(data => {
       console.log(data);
+      localStorage.setItem("pimbayToken", data);
       this.router.navigate ( [ '/home' ] );
     }, error => {
       console.log(error);
