@@ -22,7 +22,8 @@ export class UserService {
     if (res.status < 200 || res.status >= 300) {
       throw new Error('Bad response status: ' + res.status);
     }
-    return res.headers.get('token');
+    let body = res.json();
+    return body.token;
   }
 
   handleError (error: any) {
