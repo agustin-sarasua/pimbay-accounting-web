@@ -9,7 +9,7 @@ import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 })
 export class FormUploadComponent {
 
-  uploader: FileUploader = new FileUploader({url: 'https://evening-anchorage-3159.herokuapp.com/api/'});
+  uploader: FileUploader = new FileUploader({url: 'http://localhost:8080/upload'});
   hasBaseDropZoneOver = false;
   hasAnotherDropZoneOver = false;
 
